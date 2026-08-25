@@ -14,9 +14,12 @@ export const site = {
   releasesUrl: 'https://github.com/alexgutjahr/torwache/releases',
   issuesUrl: 'https://github.com/alexgutjahr/torwache/issues',
 
-  // Add the published listing URL here. Until then, StoreLink renders an honest
-  // coming-soon state instead of sending visitors to an unrelated extension.
-  chromeWebStoreUrl: null as string | null,
+  chromeWebStore: {
+    // The extension ID makes this URL permanent. Keep `published` false until
+    // the anonymous listing resolves to torwache instead of `empty-title`.
+    url: 'https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj',
+    published: false,
+  },
 
   contacts: contactEmails,
 

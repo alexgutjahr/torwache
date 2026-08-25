@@ -68,7 +68,8 @@ Instrument Sans asset from `../extension/public`. Keep product controls in those
 
 Public values that cannot be inferred safely live in `src/config.ts`:
 
-- `chromeWebStoreUrl` — the published listing URL.
+- `chromeWebStore.url` — the permanent ID-based listing URL.
+- `chromeWebStore.published` — only enable after the anonymous listing resolves to torwache.
 - `legal` — the operator details used by the imprint and the privacy policy.
 
 The imprint stays `noindex` and labels missing fields until all legal details are present.

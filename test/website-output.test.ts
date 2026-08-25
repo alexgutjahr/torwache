@@ -44,6 +44,15 @@ describe('static website output', () => {
     expect(html).toContain('<meta name="application-name" content="torwache">');
   });
 
+  test('the pending store review does not expose an unavailable listing', () => {
+    const html = readFileSync(outputPath('/'), 'utf8');
+
+    expect(html).toContain('Chrome Web Store listing pending.');
+    expect(html).not.toContain(
+      'https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj',
+    );
+  });
+
   test.each(['/about/', '/contact/', '/privacy/'])(
     '%s is a substantive trust page',
     (route) => {

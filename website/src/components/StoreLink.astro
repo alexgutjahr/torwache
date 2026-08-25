@@ -15,10 +15,10 @@ const { variant = 'solid', size = 'md', label = 'Add to Chrome' } = Astro.props;
 ---
 
 {
-  site.chromeWebStoreUrl ? (
+  site.chromeWebStore.published ? (
     <a
       class:list={['btn', `btn-${variant}`, `btn-${size}`, 'btn-store']}
-      href={site.chromeWebStoreUrl}
+      href={site.chromeWebStore.url}
     >
       <BrandIcon icon={siGooglechrome} class="chrome-mark" />
       <span class="btn-label">{label}</span>

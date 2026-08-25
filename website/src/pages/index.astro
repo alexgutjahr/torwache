@@ -8,7 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 
 /* Until the listing is live, the repository is the only link that actually goes
    somewhere, so it carries the filled face instead of the store button. */
-const storeReady = Boolean(site.chromeWebStoreUrl);
+const storeReady = site.chromeWebStore.published;
 
 const steps = [
   {
