@@ -6,9 +6,9 @@ export default defineConfig({
   publicDir: 'extension/public',
   manifestVersion: 3,
   manifest: {
-    name: 'torwache',
+    name: 'torwache — Website Blocker',
     description:
-      'Simple website blocker. Blocks the sites on your list and nothing else. No telemetry, no accounts, no cloud sync.',
+      'A dead-simple website blocker for Chrome. Block distracting sites locally—no account, cloud sync, analytics, or telemetry.',
     minimum_chrome_version: '123',
     homepage_url: 'https://torwache.com/',
     content_security_policy: {

@@ -9,6 +9,17 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 Nothing yet.
 
+## 1.6.2 — 2026-08-25
+
+### Changed
+
+- The Chrome Web Store title and summary now state the extension's purpose directly while keeping
+  the lowercase torwache brand and avoiding keyword repetition.
+- The 128px installation and Store icon now uses Chrome's recommended 96px artwork area with 16px
+  of transparent padding on each side; toolbar icons keep their existing visual weight.
+- The extension privacy policy now includes the Chrome Web Store Limited Use affirmation required
+  alongside the Store's local web-history disclosure.
+
 ## 1.6.1 — 2026-08-25
 
 ### Added

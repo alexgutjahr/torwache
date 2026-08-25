@@ -1,6 +1,6 @@
 # torwache
 
-A dead-simple Chrome extension that blocks websites.
+A dead-simple website blocker for Chrome.
 
 Official website: [torwache.com](https://torwache.com/)
 

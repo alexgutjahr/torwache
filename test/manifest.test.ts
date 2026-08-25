@@ -2,6 +2,7 @@ import assert from 'node:assert/strict';
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { inflateSync } from 'node:zlib';
 import { test } from 'vitest';
 import type { Browser } from 'wxt/browser';
 
@@ -24,17 +25,46 @@ test('the manifest and package.json agree on the version', () => {
 });
 
 test('the extension uses the lowercase torwache identity', () => {
-  assert.equal(manifest.name, 'torwache');
-  assert.equal(manifest.action.default_title, manifest.name);
-  assert.equal(pkg.name, manifest.name);
+  assert.equal(manifest.name, 'torwache — Website Blocker');
+  assert.equal(manifest.action.default_title, 'torwache');
+  assert.equal(pkg.name, 'torwache');
 });
 
 test("the Store description is accurate and within Chrome's limit", () => {
   assert.equal(
     manifest.description,
-    'Simple website blocker. Blocks the sites on your list and nothing else. No telemetry, no accounts, no cloud sync.',
+    'A dead-simple website blocker for Chrome. Block distracting sites locally—no account, cloud sync, analytics, or telemetry.',
   );
   assert.ok(manifest.description.length <= 132);
+});
+
+test("the Store icon uses Chrome's recommended 96px artwork area", () => {
+  const png = readFileSync(join(ROOT, '.output/chrome-mv3/icons/icon128.png'));
+  const idat: Buffer[] = [];
+  for (let offset = 8; offset < png.length; ) {
+    const length = png.readUInt32BE(offset);
+    const type = png.toString('ascii', offset + 4, offset + 8);
+    if (type === 'IDAT') idat.push(png.subarray(offset + 8, offset + 8 + length));
+    offset += length + 12;
+  }
+
+  const raw = inflateSync(Buffer.concat(idat));
+  const size = 128;
+  const stride = size * 4 + 1;
+  const occupied: Array<readonly [number, number]> = [];
+  for (let y = 0; y < size; y++) {
+    assert.equal(raw[y * stride], 0, 'icon encoder must use the no-filter scanline');
+    for (let x = 0; x < size; x++) {
+      if (raw[y * stride + 1 + x * 4 + 3]) occupied.push([x, y]);
+    }
+  }
+
+  const xs = occupied.map(([x]) => x);
+  const ys = occupied.map(([, y]) => y);
+  assert.equal(Math.min(...xs), 16);
+  assert.equal(Math.max(...xs), 111);
+  assert.equal(Math.min(...ys), 16);
+  assert.equal(Math.max(...ys), 111);
 });
 
 test('the official website is the torwache domain', () => {

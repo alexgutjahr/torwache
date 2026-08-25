@@ -13,6 +13,8 @@ import { deflateSync } from 'node:zlib';
 const OUT = join(dirname(fileURLToPath(import.meta.url)), '..', 'extension', 'public', 'icons');
 const SIZES = [16, 32, 48, 128];
 const SUPERSAMPLE = 4;
+const STORE_ICON_SIZE = 128;
+const STORE_ICON_PADDING = 16;
 const DESIGN = {
   size: 64,
   tileInset: 0,
@@ -153,10 +155,11 @@ function renderSvg() {
  * @param {number} size
  * @returns {Buffer}
  */
-function render(size) {
+function render(size, padding = 0) {
   const pixels = Buffer.alloc(size * size * 4);
   const step = 1 / (size * SUPERSAMPLE);
   const samples = SUPERSAMPLE * SUPERSAMPLE;
+  const artworkScale = 1 - (padding * 2) / size;
 
   for (let py = 0; py < size; py++) {
     for (let px = 0; px < size; px++) {
@@ -168,8 +171,8 @@ function render(size) {
       for (let sy = 0; sy < SUPERSAMPLE; sy++) {
         for (let sx = 0; sx < SUPERSAMPLE; sx++) {
           const colour = shade(
-            (px * SUPERSAMPLE + sx + 0.5) * step,
-            (py * SUPERSAMPLE + sy + 0.5) * step,
+            ((px * SUPERSAMPLE + sx + 0.5) * step - padding / size) / artworkScale,
+            ((py * SUPERSAMPLE + sy + 0.5) * step - padding / size) / artworkScale,
           );
           if (!colour) continue;
           r += colour[0];
@@ -245,6 +248,7 @@ writeFileSync(join(OUT, 'mark.svg'), renderSvg());
 console.log('mark.svg');
 for (const size of SIZES) {
   const file = join(OUT, `icon${size}.png`);
-  writeFileSync(file, encodePNG(size, render(size)));
+  const padding = size === STORE_ICON_SIZE ? STORE_ICON_PADDING : 0;
+  writeFileSync(file, encodePNG(size, render(size, padding)));
   console.log(`icon${size}.png`);
 }

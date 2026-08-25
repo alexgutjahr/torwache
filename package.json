@@ -1,8 +1,8 @@
 {
   "name": "torwache",
-  "version": "1.6.1",
+  "version": "1.6.2",
   "private": true,
-  "description": "A dead-simple Chrome extension that blocks websites. No tracking, no syncing, no nonsense.",
+  "description": "A dead-simple website blocker for Chrome. No tracking, no syncing, no nonsense.",
   "homepage": "https://torwache.com/",
   "type": "module",
   "workspaces": [
