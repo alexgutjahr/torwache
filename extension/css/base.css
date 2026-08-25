@@ -1,0 +1,44 @@
+@layer base {
+  html {
+    background-color: var(--bx-bg);
+  }
+
+  body {
+    color: var(--bx-fg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--bx-accent);
+    outline-offset: 2px;
+  }
+
+  ::selection {
+    background: var(--bx-soft);
+    color: var(--bx-fg);
+  }
+}
+
+/*
+ * Deliberately unlayered and slightly more specific than `body`.
+ *
+ * Chrome ships its own stylesheet for extension pages setting
+ *   body { font-family: system-ui, sans-serif; font-size: 75% }
+ * which outranks anything inside a cascade layer. Without this the bundled
+ * typeface is ignored and inherited sizes drop to 12px, and only on a real
+ * chrome-extension:// origin, never when previewing the page over http.
+ */
+html body {
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

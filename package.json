@@ -1,0 +1,54 @@
+{
+  "name": "torwache",
+  "version": "1.6.1",
+  "private": true,
+  "description": "A dead-simple Chrome extension that blocks websites. No tracking, no syncing, no nonsense.",
+  "homepage": "https://torwache.com/",
+  "type": "module",
+  "workspaces": [
+    "website"
+  ],
+  "scripts": {
+    "predev": "npm run build:icons",
+    "dev": "wxt",
+    "prebuild": "npm run build:icons",
+    "build": "wxt build",
+    "prezip": "npm run build:icons",
+    "zip": "wxt zip",
+    "build:icons": "node tools/make-icons.mjs",
+    "lint": "biome check .",
+    "format": "biome check --write .",
+    "typecheck": "wxt prepare && tsc --noEmit -p tsconfig.extension.json && tsc --noEmit -p tsconfig.tools.json",
+    "test:unit": "npm run build && vitest run",
+    "test:e2e": "npm run build && npm run website:build && vitest run --config vitest.e2e.config.ts",
+    "test": "npm run build && npm run website:build && vitest run && vitest run --config vitest.e2e.config.ts",
+    "check": "npm run lint && npm run typecheck && npm test && npm run website:check",
+    "website:dev": "npm run dev --workspace @torwache/website",
+    "website:build": "npm run build --workspace @torwache/website",
+    "website:check": "npm run check --workspace @torwache/website",
+    "screenshots": "npm run build && node tools/screenshots.mjs",
+    "package": "npm run check && wxt zip && node tools/checksum.mjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.10",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/node": "^26.3.0",
+    "puppeteer": "^25.9.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.11",
+    "web-ext": "^10.6.0",
+    "wxt": "^0.21.4"
+  },
+  "license": "0BSD",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alexgutjahr/torwache.git"
+  },
+  "engines": {
+    "node": "24.x"
+  },
+  "dependencies": {
+    "tldts": "^7.4.11"
+  }
+}

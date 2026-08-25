@@ -1,0 +1,131 @@
+---
+import SiteFooter from '../components/SiteFooter.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import { brandAssets } from '../assets';
+import { site } from '../config';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  ogType?: 'website' | 'article';
+  structuredData?: Record<string, unknown> | Record<string, unknown>[] | undefined;
+}
+
+const {
+  title,
+  description = site.description,
+  noindex = false,
+  ogType = 'website',
+  structuredData,
+} = Astro.props;
+const pageTitle = title ? `${title} — ${site.name}` : `${site.name} — ${site.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site ?? site.url);
+const socialImage = new URL('/social-card.svg', Astro.site ?? site.url);
+const markdownPath =
+  Astro.url.pathname === '/'
+    ? '/index.md'
+    : Astro.url.pathname === '/404/' || Astro.url.pathname === '/404'
+      ? '/404.md'
+      : `${Astro.url.pathname.endsWith('/') ? Astro.url.pathname : `${Astro.url.pathname}/`}index.md`;
+const globalJsonLd = JSON.stringify([
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    '@id': `${site.url}/#organization`,
+    name: site.legal.operatorName,
+    alternateName: site.name,
+    legalName: site.legal.operatorName,
+    url: site.url,
+    email: site.legal.email,
+    logo: new URL(brandAssets.markUrl, Astro.site ?? site.url).href,
+    brand: {
+      '@type': 'Brand',
+      name: site.name,
+      url: site.url,
+    },
+    address: {
+      '@type': 'PostalAddress',
+      streetAddress: site.legal.streetAddress,
+      postalCode: site.legal.postalCode,
+      addressLocality: site.legal.addressLocality,
+      addressCountry: site.legal.countryCode,
+    },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      contactType: 'customer support',
+      email: site.legal.email,
+      url: `${site.url}/contact/`,
+      availableLanguage: ['English', 'German'],
+    },
+    sameAs: [site.repositoryUrl],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    '@id': `${site.url}/#website`,
+    name: site.name,
+    alternateName: 'torwache website blocker',
+    url: site.url,
+    publisher: { '@id': `${site.url}/#organization` },
+  },
+]).replaceAll('<', '\\u003c');
+const jsonLd = structuredData
+  ? JSON.stringify(structuredData).replaceAll('<', '\\u003c')
+  : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="application-name" content={site.name} />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#f4f6f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1113" media="(prefers-color-scheme: dark)" />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="text/markdown" href={markdownPath} />
+    <link rel="describedby" href="/llms.txt" />
+    <link rel="icon" type="image/svg+xml" href={brandAssets.markUrl} />
+
+    <meta property="og:type" content={ogType} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={socialImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <script is:inline type="application/ld+json" set:html={globalJsonLd}></script>
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd}></script>}
+
+    <!-- Fathom - beautiful, simple website analytics (production only) -->
+    {
+      import.meta.env.PROD && (
+        <script
+          is:inline
+          src="https://cdn.usefathom.com/script.js"
+          data-site="IFNRPGPQ"
+          data-honor-dnt="true"
+          defer
+        ></script>
+      )
+    }
+    <!-- / Fathom -->
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <SiteHeader />
+    <main id="main">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

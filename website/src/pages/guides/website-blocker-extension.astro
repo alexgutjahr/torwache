@@ -1,0 +1,148 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'What to check before installing a website blocker extension',
+  description:
+    'A practical checklist for website blocker permissions, privacy, bypasses, schedules, and pricing.',
+  dateModified: '2026-08-24',
+};
+---
+
+<ContentLayout
+  title="What to check before installing a website blocker extension"
+  metaTitle="Choosing a website blocker extension"
+  description="Choose a website blocker extension by comparing permissions, privacy, bypass behavior, schedules, accounts, analytics, and pricing."
+  eyebrow="Buyer’s guide"
+  intro="The largest blocker is not automatically the best blocker. Start with the boundary you need, then choose the smallest permission and feature set that can enforce it."
+  updated="August 24, 2026"
+  structuredData={structuredData}
+  toc={[
+    { href: '#blocking-model', label: 'Choose the blocking model' },
+    { href: '#permissions', label: 'Read the permissions' },
+    { href: '#data', label: 'Follow the data' },
+    { href: '#features', label: 'Separate useful features from overhead' },
+    { href: '#checklist', label: 'Installation checklist' },
+  ]}
+>
+  <section id="blocking-model">
+    <h2>First choose the kind of boundary</h2>
+    <p>
+      “Website blocker” describes several different products. One may keep a domain closed
+      until you deliberately re-enable it. Another may allow twenty minutes per day. A third
+      may coordinate scheduled sessions across every device you own.
+    </p>
+    <div class="choice-grid">
+      <article>
+        <p class="eyebrow">Persistent list</p>
+        <h3>Open or blocked</h3>
+        <p>Best when a handful of sites simply should not open in this browser.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Time allowance</p>
+        <h3>Limited, not forbidden</h3>
+        <p>Best when the site is useful but you want a daily ceiling.</p>
+      </article>
+      <article>
+        <p class="eyebrow">Focus system</p>
+        <h3>Scheduled sessions</h3>
+        <p>Best when routines, hard locks, applications, and multiple devices matter.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="permissions">
+    <h2>Read the permission prompt as a product description</h2>
+    <p>
+      Permissions reveal architecture. An extension that modifies YouTube recommendations or
+      measures time on a page needs deeper page access than one that hands Chrome a list of
+      domains to refuse.
+    </p>
+    <p>
+      Broad access is not automatically malicious; it may be necessary for the advertised
+      feature. The important question is whether you want that feature enough to grant that
+      access. A trustworthy listing explains the trade rather than hiding it behind “we value
+      your privacy.”
+    </p>
+    <aside class="callout">
+      <strong>Small is verifiable</strong>
+      <p>
+        torwache declares three permissions: local storage, declarative network rules, and a
+        navigation signal used to show a readable local block page. It declares no host
+        permissions and ships no content scripts.
+      </p>
+    </aside>
+  </section>
+
+  <section id="data">
+    <h2>Follow the blocklist and the browsing history</h2>
+    <p>
+      A blocklist can reveal sensitive habits. Syncing it is convenient, but it also moves that
+      list from local browser storage to an account or cloud service. Usage dashboards require
+      another category of data: which sites were open, and for how long.
+    </p>
+    <p>
+      Decide whether cross-device convenience or analytics is worth that data model. If it is,
+      choose a provider whose policy clearly states retention and deletion. If it is not, choose
+      a blocker that does not retain usage history in the first place.
+    </p>
+  </section>
+
+  <section id="features">
+    <h2>Useful feature or another thing to maintain?</h2>
+    <dl class="decision-list">
+      <div>
+        <dt>Schedules</dt>
+        <dd>
+          Valuable for recurring work hours; unnecessary when the same sites are always blocked.
+        </dd>
+      </div>
+      <div>
+        <dt>Password protection</dt>
+        <dd>
+          Useful for parental controls or accountability partners; friction for personal lists.
+        </dd>
+      </div>
+      <div>
+        <dt>Usage analytics</dt>
+        <dd>
+          Useful when you want to study behavior; overhead when you already know the distracting
+          sites.
+        </dd>
+      </div>
+      <div>
+        <dt>Cross-device sync</dt>
+        <dd>Useful across phones and computers; unnecessary for a short list in one browser.</dd>
+      </div>
+      <div>
+        <dt>Bypass button</dt>
+        <dd>
+          Useful for accidental blocks; counterproductive when the point is to stop negotiating.
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="checklist">
+    <h2>A 60-second installation checklist</h2>
+    <ul class="check-list numbered-checks">
+      <li><span>01</span> Does it block the way you need: permanent, limited, or scheduled?</li>
+      <li><span>02</span> Can you explain why it needs every requested permission?</li>
+      <li><span>03</span> Is the blocklist local, synced, or tied to an account?</li>
+      <li><span>04</span> Does “free” mean free, a trial, or a restricted tier?</li>
+      <li><span>05</span> Can you remove your data and export your settings?</li>
+      <li>
+        <span>06</span> Does the block page support the boundary or immediately undermine it?
+      </li>
+    </ul>
+    <p>
+      For concrete differences, see the current comparisons with
+      <a href="/compare/blocksite/">BlockSite</a>,
+      <a href="/compare/stayfocusd/">StayFocusd</a>,
+      <a href="/compare/cold-turkey/">Cold Turkey</a>, and
+      <a href="/compare/freedom/">Freedom</a>.
+    </p>
+  </section>
+</ContentLayout>

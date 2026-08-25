@@ -1,0 +1,15 @@
+---
+import Mark from './Mark.astro';
+---
+
+<div class="card product-blocked" aria-hidden="true" inert>
+  <Mark />
+  <h3>This site is blocked</h3>
+  <p class="product-blocked__host">www.youtube.com</p>
+  <p class="product-blocked__body">
+    torwache stopped this navigation because the site matches an entry on your list. There is no
+    way through from here. To open it, switch its entry off in your blocklist first.
+  </p>
+  <button class="btn" type="button" tabindex="-1">Open blocklist</button>
+  <p class="product-blocked__matched">Matched your entry for youtube.com and its subdomains</p>
+</div>

@@ -1,0 +1,23 @@
+/*
+ * torwache stylesheet entry point.
+ *
+ *   fonts      the bundled typeface
+ *   tokens     every colour and radius, once, in both themes
+ *   base       element defaults
+ *   components the handful of shapes that appear more than once
+ *
+ * Anything used in only one place stays a Tailwind utility in the markup.
+ */
+@import "tailwindcss";
+@import "./fonts.css";
+@import "./tokens.css";
+@import "./base.css";
+@import "./components.css";
+
+@source "../entrypoints/**/*.html";
+/* The only utility classes assembled in JavaScript. Scanning arbitrary source
+   text would also emit utilities for prose such as "container" and "block". */
+@source inline("font-medium text-danger text-fg");
+/* Tailwind treats visible copy as potential class names too. None of these
+   standalone words is used as a utility in the extension markup. */
+@source not inline("visible container block contents table rounded ring blur filter");

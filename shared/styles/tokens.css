@@ -1,0 +1,36 @@
+/*
+ * Shared product tokens for the Chrome extension and torwache.com.
+ * Tailwind-specific aliases stay in extension/css/tokens.css.
+ */
+:root {
+  color-scheme: light dark;
+
+  --bx-bg:        light-dark(#f4f6f7, #0d1113);
+  --bx-card:      light-dark(#ffffff, #151a1c);
+  --bx-raised:    light-dark(#f8fafa, #1a2023);
+  --bx-line:      light-dark(#e2e8ea, #242c2f);
+  --bx-fg:        light-dark(#0f1719, #e7edef);
+  --bx-muted:     light-dark(#566a70, #94a3a8);
+  --bx-faint:     light-dark(#607076, #78898e);
+  --bx-accent:    light-dark(#0f766e, #2dd4bf);
+  --bx-soft:      light-dark(#ddefec, #10312d);
+  --bx-on-accent: light-dark(#ffffff, #04211d);
+  --bx-off:       light-dark(#7f9095, #64767c);
+  --bx-danger:    light-dark(#b32431, #f2707c);
+  --bx-knob:      light-dark(#ffffff, #f5f8f8);
+
+  --bx-shadow-near: light-dark(rgb(15 23 25 / 0.05), rgb(0 0 0 / 0.4));
+  --bx-shadow-far:  light-dark(rgb(15 23 25 / 0.14), rgb(0 0 0 / 0.7));
+  --bx-shadow: 0 1px 2px var(--bx-shadow-near), 0 3px 14px -8px var(--bx-shadow-far);
+  --bx-knob-shadow: 0 1px 2px rgb(0 0 0 / 0.25);
+
+  --bx-radius-sm: 0.3125rem;
+  --bx-radius:    0.5rem;
+  --bx-radius-lg: 0.75rem;
+  --bx-radius-full: 9999px;
+
+  --bx-font-sans: 'Instrument Sans', ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+:root[data-theme='light'] { color-scheme: light; }
+:root[data-theme='dark'] { color-scheme: dark; }

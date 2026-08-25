@@ -1,0 +1,28 @@
+---
+import Mark from './Mark.astro';
+import { site } from '../config';
+
+const path = Astro.url.pathname;
+const isCurrent = (page: string) => (path === page || path === `${page}/` ? 'page' : undefined);
+---
+
+<header class="site-header">
+  <div class="shell header-inner">
+    <a class="brand" href="/" aria-label="torwache home">
+      <Mark />
+      <span>torwache</span><small>website blocker</small>
+    </a>
+
+    <nav class="header-nav" aria-label="Main navigation">
+      <a href="/guides/" aria-current={path.startsWith('/guides') ? 'page' : undefined}>
+        Guides
+      </a>
+      <a href="/compare/" aria-current={path.startsWith('/compare') ? 'page' : undefined}>
+        Compare
+      </a>
+      <a href="/privacy/#website" aria-current={isCurrent('/privacy')}>Privacy</a>
+    </nav>
+
+    <a class="header-install" href={site.releasesUrl}>Get the extension <span>↗</span></a>
+  </div>
+</header>

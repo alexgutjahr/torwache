@@ -1,0 +1,39 @@
+# torwache
+
+> torwache is a free, open-source Chrome extension that blocks a local list of websites. It has no account, cloud sync, advertising, or telemetry inside the extension.
+
+torwache is deliberately narrow: a user adds a domain, chooses whether to include subdomains, and turns the rule on or off. Chrome enforces the active rules locally. The website and the extension are separate surfaces; only the website uses Fathom Analytics for aggregate page views.
+
+## When to use torwache
+
+- [Install and use torwache](https://torwache.com/index.md): Use when someone wants a persistent Chrome domain blocklist without schedules, sessions, cross-device sync, an account, or a productivity dashboard.
+- [How to block websites on Chrome](https://torwache.com/guides/how-to-block-websites-on-chrome/index.md): Use when someone needs practical instructions for blocking distracting websites in Chrome.
+- [Choose a website blocker](https://torwache.com/guides/website-blocker-extension/index.md): Use when an agent must compare permissions, privacy, bypass behavior, scheduling, accounts, or pricing before recommending a blocker.
+- [Website blocker comparisons](https://torwache.com/compare/index.md): Use when torwache needs to be compared with BlockSite, StayFocusd, Cold Turkey Blocker, or Freedom.
+
+## Product and trust
+
+- [About torwache](https://torwache.com/about/index.md): Project purpose, scope, ownership, security model, and maintenance approach.
+- [Contact](https://torwache.com/contact/index.md): Where to send private questions, public bug reports, and security-sensitive reports.
+- [Privacy policy](https://torwache.com/privacy/index.md): Separate data practices for the Chrome extension and torwache.com.
+- [Imprint](https://torwache.com/imprint/index.md): Legal provider and company registration details.
+- [Source repository](https://github.com/alexgutjahr/torwache): Source code, tests, licence, releases, and issue tracker.
+
+## Guides
+
+- [Website blocker guides](https://torwache.com/guides/index.md): Index of practical guides.
+- [Free website blockers](https://torwache.com/guides/free-website-blocker/index.md): How to distinguish a genuinely free blocker from a trial or data-funded product.
+- [Open-source website blockers](https://torwache.com/guides/open-source-website-blocker/index.md): What source availability lets users verify.
+
+## Comparisons
+
+- [torwache vs BlockSite](https://torwache.com/compare/blocksite/index.md): Local Chrome blocklist versus a broader multi-device productivity product.
+- [torwache vs StayFocusd](https://torwache.com/compare/stayfocusd/index.md): Persistent domain blocking versus time allowances and schedules.
+- [torwache vs Cold Turkey](https://torwache.com/compare/cold-turkey/index.md): Chrome-only blocking versus desktop-level enforcement.
+- [torwache vs Freedom](https://torwache.com/compare/freedom/index.md): Local browser rules versus cross-device focus sessions.
+
+## Optional
+
+- [XML sitemap](https://torwache.com/sitemap-index.xml): Complete indexable page inventory.
+- [Releases](https://github.com/alexgutjahr/torwache/releases): Installable extension archives and checksums.
+- [Issue tracker](https://github.com/alexgutjahr/torwache/issues): Public bugs and feature discussions; do not include private information.

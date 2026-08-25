@@ -1,0 +1,176 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+const faq = [
+  {
+    q: 'Can Chrome block a specific website by itself?',
+    a: 'For an ordinary personal Chrome profile, a focused browser extension is the most direct way to maintain a custom blocklist. Managed organizations can also enforce URL policies administratively.',
+  },
+  {
+    q: 'Why does a site that was already open stay visible?',
+    a: 'The page has already loaded. Reload it or navigate again so the new blocking rule can apply. Retroactively inspecting every open tab would require broader tab or history access.',
+  },
+  {
+    q: 'Should I enter the full URL?',
+    a: 'For torwache, enter the domain, such as youtube.com, without https:// or a page path. Enable subdomains if you also want addresses such as music.youtube.com covered.',
+  },
+];
+
+const structuredData = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: 'How to block websites on Chrome',
+    description: 'Add a distracting domain to a local Chrome website blocklist in four steps.',
+    totalTime: 'PT2M',
+    step: [
+      { '@type': 'HowToStep', position: 1, name: 'Install a website blocker extension' },
+      { '@type': 'HowToStep', position: 2, name: 'Open its blocklist' },
+      {
+        '@type': 'HowToStep',
+        position: 3,
+        name: 'Add the domain and choose subdomain coverage',
+      },
+      { '@type': 'HowToStep', position: 4, name: 'Reload any tab that was already open' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faq.map(({ q, a }) => ({
+      '@type': 'Question',
+      name: q,
+      acceptedAnswer: { '@type': 'Answer', text: a },
+    })),
+  },
+];
+---
+
+<ContentLayout
+  title="How to block websites on Chrome"
+  metaTitle="How to block websites on Chrome"
+  description="Learn how to block distracting websites on Chrome with a simple domain list, including subdomains, existing tabs, permissions, and privacy checks."
+  eyebrow="Two-minute guide"
+  intro="The simplest method is a small Chrome extension with a domain blocklist. Add the site once, decide whether its subdomains count, and let Chrome refuse future navigations."
+  updated="August 24, 2026"
+  structuredData={structuredData}
+  toc={[
+    { href: '#quick-method', label: 'The quick method' },
+    { href: '#example', label: 'A concrete example' },
+    { href: '#other-methods', label: 'Other blocking methods' },
+    { href: '#privacy', label: 'Check the privacy cost' },
+    { href: '#questions', label: 'Common questions' },
+  ]}
+>
+  <section id="quick-method">
+    <h2>The quick method</h2>
+    <ol class="steps">
+      <li>
+        <span>1</span>
+        <div>
+          <h3>Install a website blocker extension</h3>
+          <p>
+            Prefer one whose store listing explains every permission and whose privacy policy
+            distinguishes extension data from website analytics.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span>2</span>
+        <div>
+          <h3>Open the blocklist</h3>
+          <p>
+            A blocker should make its central action obvious. In torwache, the entire interface
+            is the list—there is no dashboard to configure first.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span>3</span>
+        <div>
+          <h3>Add the domain</h3>
+          <p>
+            Enter <code>reddit.com</code>, not a search phrase or a full URL. Turn on subdomain
+            blocking when you want addresses below that domain covered too.
+          </p>
+        </div>
+      </li>
+      <li>
+        <span>4</span>
+        <div>
+          <h3>Reload anything already open</h3>
+          <p>
+            Blocking affects the next request or navigation. A page that has already loaded
+            will remain until it reloads or navigates.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="example">
+    <h2>Example: block YouTube without overcomplicating it</h2>
+    <p>
+      Add <code>youtube.com</code> and enable subdomains. New attempts to open YouTube are sent
+      to a local blocked page. When you genuinely want access again, return to the list and
+      switch the entry off.
+    </p>
+    <aside class="callout">
+      <strong>No “five more minutes” button</strong>
+      <p>
+        A convenient bypass turns a block page into another decision. torwache deliberately
+        makes you edit the list instead.
+      </p>
+    </aside>
+  </section>
+
+  <section id="other-methods">
+    <h2>When an extension is not the right tool</h2>
+    <p>
+      A Chrome extension is ideal when the distraction lives in Chrome and you control the
+      browser profile. Use something else when the boundary needs to extend further:
+    </p>
+    <dl class="decision-list">
+      <div>
+        <dt>Router or DNS filtering</dt>
+        <dd>Useful when the same domains should be unavailable to multiple devices.</dd>
+      </div>
+      <div>
+        <dt>Operating-system blocker</dt>
+        <dd>Better when desktop applications and every installed browser must be covered.</dd>
+      </div>
+      <div>
+        <dt>Managed Chrome policy</dt>
+        <dd>Appropriate for schools or organizations administering many browser profiles.</dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="privacy">
+    <h2>Check what the blocker receives in return</h2>
+    <p>
+      Website blockers sit unusually close to browsing behavior. Before installing one, read
+      the permission prompt and its store privacy disclosures. Look for plain answers to four
+      questions:
+    </p>
+    <ul class="check-list">
+      <li>Can it read or change the content of every page?</li>
+      <li>Does your blocklist stay on the device or sync to an account?</li>
+      <li>Does it record website usage to produce charts or streaks?</li>
+      <li>Does the extension make network requests of its own?</li>
+    </ul>
+    <p>
+      torwache uses local storage and Chrome’s declarative network rules. It has no content
+      scripts or host permissions, loads no remote assets, and makes no background network
+      requests. External links open only when clicked. The exact permission rationale is published
+      on the <a href="/#permissions">homepage</a>.
+    </p>
+  </section>
+
+  <section id="questions">
+    <h2>Common questions</h2>
+    <dl class="faq compact-faq">
+      {faq.map(({ q, a }) => <div><dt>{q}</dt><dd>{a}</dd></div>)}
+    </dl>
+  </section>
+</ContentLayout>

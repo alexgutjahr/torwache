@@ -1,0 +1,18 @@
+{
+  "// ": "Node tooling and browser-driven tests.",
+  "extends": "./tsconfig.extension.json",
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "checkJs": true,
+    "types": ["node", "vitest/globals"]
+  },
+  "include": [
+    ".wxt/wxt.d.ts",
+    "tools/**/*.mjs",
+    "test/**/*.mjs",
+    "test/**/*.ts",
+    "vitest.config.ts",
+    "vitest.e2e.config.ts"
+  ]
+}

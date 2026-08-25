@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="The requested page does not exist on torwache.com."
+  noindex
+>
+  <section class="not-found">
+    <div class="shell legal-shell">
+      <p class="document-meta"><span>Error 404</span></p>
+      <h1>Page not found.</h1>
+      <p>The address does not exist. These are the useful ways back into the site:</p>
+      <nav class="recovery-links" aria-label="Where to look next">
+        <a href="/">Homepage <span>→</span></a>
+        <a href="/guides/">Guides <span>→</span></a>
+        <a href="/compare/">Comparisons <span>→</span></a>
+        <a href="/sitemap-index.xml">XML sitemap <span>→</span></a>
+        <a href="/llms.txt">Agent guide <span>→</span></a>
+      </nav>
+    </div>
+  </section>
+</BaseLayout>

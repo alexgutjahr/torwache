@@ -1,0 +1,16 @@
+node_modules/
+.DS_Store
+dist/
+.output/
+.wxt/
+.vercel/
+
+# Local configuration and credentials. Commit an explicit example file instead.
+.env
+.env.*
+!.env.example
+
+# Store listing copy and screenshots: marketing artefacts, not part of the extension.
+# Kept locally; `npm run screenshots` regenerates them from the running extension.
+docs/store/
+docs/store-listing.md

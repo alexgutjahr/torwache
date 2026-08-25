@@ -1,0 +1,24 @@
+---
+import BaseLayout from './BaseLayout.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  eyebrow: string;
+  noindex?: boolean;
+}
+
+const { title, description, eyebrow, noindex = false } = Astro.props;
+---
+
+<BaseLayout title={title} description={description} noindex={noindex}>
+  <section class="legal-hero">
+    <div class="shell legal-shell">
+      <a class="back-link" href="/">&larr; Back to torwache</a>
+      <p class="document-meta"><span>{eyebrow}</span></p>
+      <div class="legal-document">
+        <slot />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

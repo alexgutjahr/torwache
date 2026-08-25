@@ -1,0 +1,35 @@
+---
+import { siGooglechrome } from 'simple-icons';
+
+import { site } from '../config';
+import BrandIcon from './BrandIcon.astro';
+
+interface Props {
+  /* `solid` is the filled face, `quiet` the outlined one. */
+  variant?: 'solid' | 'quiet';
+  size?: 'sm' | 'md' | 'lg';
+  label?: string;
+}
+
+const { variant = 'solid', size = 'md', label = 'Add to Chrome' } = Astro.props;
+---
+
+{
+  site.chromeWebStoreUrl ? (
+    <a
+      class:list={['btn', `btn-${variant}`, `btn-${size}`, 'btn-store']}
+      href={site.chromeWebStoreUrl}
+    >
+      <BrandIcon icon={siGooglechrome} class="chrome-mark" />
+      <span class="btn-label">{label}</span>
+    </a>
+  ) : (
+    /* No listing yet, so there is nowhere to send anyone. A span says that
+       honestly; a link to the store's front door would not. */
+    <span class:list={['btn', 'btn-pending', `btn-${size}`, 'btn-store']} aria-disabled="true">
+      <BrandIcon icon={siGooglechrome} class="chrome-mark" />
+      <span class="btn-label">Chrome Web Store</span>
+      <small>soon</small>
+    </span>
+  )
+}

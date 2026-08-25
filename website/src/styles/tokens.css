@@ -1,0 +1,41 @@
+:root {
+  /*
+   * Breakpoints follow Tailwind's default scale so the site and the extension
+   * (which is built with Tailwind) reason about width the same way. CSS cannot
+   * read custom properties inside a media query, so these are documentation —
+   * every media query below uses one of these five values verbatim.
+   *
+   *   sm  40rem   640px   large phone, landscape phone
+   *   md  48rem   768px   tablet portrait
+   *   lg  64rem  1024px   tablet landscape, small laptop
+   *   xl  80rem  1280px   laptop
+   *   2xl 96rem  1536px   desktop
+   */
+
+  /* Product colours and control geometry come directly from the extension.
+     The website deliberately adds very little: it is a document around the
+     product, not a second product UI. */
+  --bx-surface: var(--bx-card);
+  --bx-hairline: var(--bx-line);
+  --bx-font-serif: "Instrument Serif", ui-serif, Georgia, serif;
+
+  --site-rule-strong: light-dark(#a9b7ba, #465459);
+  --site-panel: light-dark(#eef2f2, #111719);
+  --site-index: light-dark(#76878b, #75858a);
+
+  /* The full page width, and the space kept clear either side of it. */
+  --bx-shell: 78rem;
+  --bx-gutter: 1.25rem;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --bx-gutter: 1.75rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --bx-gutter: 2.5rem;
+  }
+}

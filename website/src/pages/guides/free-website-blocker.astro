@@ -1,0 +1,115 @@
+---
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'What a free website blocker should actually mean',
+  description:
+    'Understand free tiers, trials, accounts, advertising, privacy, and open source website blockers.',
+  dateModified: '2026-08-24',
+};
+---
+
+<ContentLayout
+  title="What a free website blocker should actually mean"
+  metaTitle="Free website blocker without an account or trial"
+  description="Find a genuinely free website blocker by checking trials, paid limits, accounts, ads, tracking, local storage, and open-source code."
+  eyebrow="Plain-English guide"
+  intro="A free install button does not tell you whether the useful features expire, your list requires an account, or the product is funded by data and advertising. Read the business model before the blocklist."
+  updated="August 24, 2026"
+  structuredData={structuredData}
+  toc={[
+    { href: '#four-meanings', label: 'Four meanings of free' },
+    { href: '#privacy', label: 'Free and private' },
+    { href: '#torwache', label: 'What is free in torwache' },
+    { href: '#questions', label: 'Questions to ask' },
+  ]}
+>
+  <section id="four-meanings">
+    <h2>“Free website blocker” can mean four different things</h2>
+    <div class="definition-list">
+      <article>
+        <span>01</span>
+        <div><h3>Free trial</h3><p>The product works temporarily, then asks for payment.</p></div>
+      </article>
+      <article>
+        <span>02</span>
+        <div>
+          <h3>Restricted free tier</h3><p>
+            Basic blocking is free; schedules, more sites, or syncing are paid.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span>03</span>
+        <div>
+          <h3>Service-funded free</h3><p>
+            No direct payment, but an account, advertising, or data processing supports the
+            product.
+          </p>
+        </div>
+      </article>
+      <article>
+        <span>04</span>
+        <div>
+          <h3>Actually free software</h3><p>
+            No expiry, paid tier, account, advertising, or feature gate.
+          </p>
+        </div>
+      </article>
+    </div>
+    <p>
+      None of the first three models is automatically dishonest. The problem is ambiguity. A
+      product should state which model it uses before you build a routine around it.
+    </p>
+  </section>
+
+  <section id="privacy">
+    <h2>Free and private are separate questions</h2>
+    <p>
+      A blocker can cost nothing and still collect usage information. Conversely, a paid
+      blocker may need browsing data to provide analytics or cross-device features. Price alone
+      does not determine privacy.
+    </p>
+    <ul class="check-list">
+      <li>Check whether the extension records browsing activity or only blocked domains.</li>
+      <li>Check whether your blocklist stays in local storage.</li>
+      <li>Check for account, advertising, analytics, and telemetry SDKs.</li>
+      <li>Separate analytics on the marketing website from code running inside the extension.</li>
+    </ul>
+  </section>
+
+  <section id="torwache">
+    <h2>What “free” means for torwache</h2>
+    <p>
+      The complete blocker is free. There is no trial, paid plan, product-imposed site limit,
+      licence key, account, advertising, or upgrade screen. Chrome's own dynamic-rule and
+      regular-expression capacities still apply. The extension loads no remote assets, makes no
+      background network requests, and publishes its source under a permissive licence.
+    </p>
+    <aside class="callout">
+      <strong>The website and extension are different surfaces</strong>
+      <p>
+        This website uses cookie-free Fathom Analytics for aggregate page views. That script is
+        not packaged with the extension. The extension itself contains no analytics or background
+        network client.
+      </p>
+    </aside>
+  </section>
+
+  <section id="questions">
+    <h2>Five questions before installing any free blocker</h2>
+    <ol class="question-list">
+      <li>Which features stop working after the trial?</li>
+      <li>How many websites can the free tier block?</li>
+      <li>Is an account required to save or sync the list?</li>
+      <li>What browsing or usage data does the extension handle?</li>
+      <li>Can the business model be understood from the website and store listing?</li>
+    </ol>
+    <p>
+      If source availability matters too, continue with the guide to
+      <a href="/guides/open-source-website-blocker/">open-source website blockers</a>.
+    </p>
+  </section>
+</ContentLayout>

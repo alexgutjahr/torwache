@@ -1,0 +1,32 @@
+{
+  "name": "@torwache/website",
+  "description": "The official website for the torwache Chrome extension.",
+  "private": true,
+  "type": "module",
+  "version": "1.0.0",
+  "engines": {
+    "node": "24.x"
+  },
+  "scripts": {
+    "dev": "astro dev --background",
+    "dev:stop": "astro dev stop",
+    "dev:status": "astro dev status",
+    "dev:logs": "astro dev logs",
+    "build": "astro build && node scripts/generate-agent-content.mjs",
+    "check": "astro check",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.7.3",
+    "@vercel/functions": "^3.9.5",
+    "astro": "^7.2.6",
+    "simple-icons": "^16.28.0",
+    "turndown": "^7.2.4"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "@types/turndown": "^5.0.6",
+    "typescript": "^6.0.3"
+  }
+}

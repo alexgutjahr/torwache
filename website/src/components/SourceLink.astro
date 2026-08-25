@@ -1,0 +1,19 @@
+---
+import { siGithub } from 'simple-icons';
+
+import { site } from '../config';
+import BrandIcon from './BrandIcon.astro';
+
+interface Props {
+  variant?: 'solid' | 'quiet';
+  size?: 'sm' | 'md' | 'lg';
+  label?: string;
+}
+
+const { variant = 'quiet', size = 'md', label = 'Read the source' } = Astro.props;
+---
+
+<a class:list={['btn', `btn-${variant}`, `btn-${size}`]} href={site.repositoryUrl}>
+  <BrandIcon icon={siGithub} class="github-mark" />
+  {label}
+</a>

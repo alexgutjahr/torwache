@@ -1,0 +1,48 @@
+---
+import { site } from '../config';
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="Contact"
+  eyebrow="Contact and support"
+  description="How to contact the people responsible for torwache, report bugs, and handle private or security-sensitive information."
+>
+  <h1>Contact</h1>
+
+  <p>
+    Write to <a href={`mailto:${site.contacts.general}`}>{site.contacts.general}</a> when a question
+    needs a private reply from the company responsible for torwache. Use{' '}
+    <a href={`mailto:${site.contacts.privacy}`}>{site.contacts.privacy}</a> for privacy requests.
+    Messages are handled by {site.legal.operatorName} in Berlin, Germany. There is no outsourced
+    support desk and no user account to look up.
+  </p>
+
+  <h2>Bug reports and feature requests</h2>
+  <p>
+    Reproducible bugs and public feature discussions belong in the{' '}
+    <a href={site.issuesUrl}>GitHub issue tracker</a>. Include the torwache version, Chrome version,
+    operating system, the steps that caused the problem, and what you expected to happen. Before
+    opening a new report, check whether an existing issue already covers it. Do not paste private
+    browsing information, credentials, or personal data into a public issue.
+  </p>
+
+  <h2>Security-sensitive reports</h2>
+  <p>
+    Send suspected vulnerabilities to{' '}
+    <a href={`mailto:${site.contacts.security}`}>{site.contacts.security}</a> rather than publishing
+    exploit details in the issue tracker. Describe the affected version, the impact, and the
+    smallest reliable way to reproduce the problem. Avoid sending real credentials or unrelated
+    browsing data. Receipt can be acknowledged, but torwache is free software and does not offer a
+    contractual response or remediation time.
+  </p>
+
+  <h2>Before writing</h2>
+  <p>
+    The <a href="/guides/">guides</a> cover installation, permissions, local storage, and blocker
+    selection. The <a href="/privacy/">privacy policy</a> explains which information the extension
+    and website handle. The <a href={site.repositoryUrl}>source repository</a> contains the licence,
+    release history, tests, and implementation. torwache has no account recovery, billing, or
+    subscription support because it has no accounts, billing, or subscriptions.
+  </p>
+</LegalLayout>

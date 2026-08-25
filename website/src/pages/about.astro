@@ -1,0 +1,54 @@
+---
+import { site } from '../config';
+import LegalLayout from '../layouts/LegalLayout.astro';
+---
+
+<LegalLayout
+  title="About"
+  eyebrow="About the project"
+  description="Who makes torwache, what the extension does, and the principles that define its scope."
+>
+  <h1>About torwache</h1>
+
+  <p>
+    torwache is a small Chrome extension for one specific job: keeping websites on a local
+    blocklist from opening. Add a domain, decide whether its subdomains belong to the same rule,
+    and switch the entry on. Chrome enforces the active rules in its own network stack. There is
+    no account, hosted dashboard, cloud sync, advertising, behavioural telemetry, focus score, or
+    paid tier inside the extension.
+  </p>
+
+  <h2>Why it exists</h2>
+  <p>
+    Many website blockers have grown into broad productivity systems with schedules, timers,
+    cross-device services, analytics, and subscription plans. Those products can be useful, but
+    they solve a larger problem. torwache is for someone who already knows which domains should
+    stop opening and wants the browser to enforce that decision without adding another service to
+    their life.
+  </p>
+
+  <h2>Who is responsible</h2>
+  <p>
+    torwache is developed by {site.legal.representedBy} and published by {site.legal.operatorName},
+    a company registered in Germany. The provider address, commercial register entry, VAT number,
+    and legally responsible person are listed in the <a href="/imprint/">imprint</a>. Questions
+    that need a personal reply can be sent through the <a href="/contact/">contact page</a>.
+  </p>
+
+  <h2>How trust is earned</h2>
+  <p>
+    The source code is public under the Zero-Clause BSD licence. The repository includes strict
+    TypeScript, automated tests, the WXT build configuration, Chrome permission declarations, and
+    the code that stores and validates domains. Releases are built from that repository. This
+    makes claims about permissions, local storage, and network behaviour inspectable rather than
+    dependent on marketing copy.
+  </p>
+
+  <h2>What remains separate</h2>
+  <p>
+    The extension and this website are separate technical surfaces. The extension makes no
+    analytics requests. torwache.com uses Fathom Analytics for aggregate website page views, as
+    described in the <a href="/privacy/">privacy policy</a>. Visiting the website is not required
+    for the installed extension to block domains.
+  </p>
+</LegalLayout>

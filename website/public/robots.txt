@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://torwache.com/sitemap-index.xml

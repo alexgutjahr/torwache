@@ -1,0 +1,171 @@
+/*
+ * Product-preview layout only. The visual primitives themselves — card,
+ * field, button, switch, checkbox, and status dot — come directly from
+ * extension/css/components.css, imported by global.css.
+ */
+
+.product-preview,
+.product-blocked {
+  font-size: 0.9375rem;
+  box-shadow: var(--bx-shadow);
+}
+
+.product-preview {
+  border: 1px solid var(--bx-line);
+  border-radius: var(--bx-radius-lg);
+  background: var(--bx-bg);
+  padding: 1.25rem;
+}
+
+.product-preview__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.15rem;
+}
+
+.product-preview__brand {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.product-preview__brand .mark {
+  width: 2rem;
+  height: 2rem;
+}
+
+.product-preview__brand strong {
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.product-preview__count {
+  color: var(--bx-faint);
+  font-size: 0.75rem;
+}
+
+.product-form,
+.product-entry {
+  padding: 0.85rem 0.95rem;
+}
+
+.product-form label:first-child {
+  color: var(--bx-muted);
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.product-add-row {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.product-add-row .field {
+  flex: 1;
+  width: 100%;
+}
+
+.product-form .check-label,
+.product-entry .check-label {
+  margin-top: 0.6rem;
+}
+
+.product-list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.product-entry__row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.product-entry__actions {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.product-entry__domain {
+  flex: 1;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.product-remove {
+  appearance: none;
+  flex-shrink: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  padding: 0.35rem 0.25rem;
+  color: var(--bx-faint);
+  font: inherit;
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.25rem;
+}
+
+.product-preview__footer {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 1.15rem 0 0;
+  border-top: 1px solid var(--bx-line);
+  padding-top: 0.9rem;
+  color: var(--bx-muted);
+  font-size: 0.775rem;
+}
+
+.product-blocked {
+  padding: 1.5rem;
+}
+
+.product-blocked .mark {
+  width: 2.75rem;
+  height: 2.75rem;
+}
+
+.product-blocked h3 {
+  margin: 1.5rem 0 0.2rem;
+  font-family: var(--bx-font-sans);
+  font-size: 1.05rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.product-blocked__host {
+  margin: 0;
+  color: var(--bx-accent);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.product-blocked__body {
+  margin: 1.1rem 0 0;
+  color: var(--bx-muted);
+  font-size: 0.8rem;
+  line-height: 1.55;
+}
+
+.product-blocked .btn {
+  width: 100%;
+  margin-top: 1.3rem;
+}
+
+.product-blocked__matched {
+  margin: 0.8rem 0 0;
+  color: var(--bx-faint);
+  font-size: 0.7rem;
+}

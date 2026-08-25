@@ -1,0 +1,32 @@
+---
+import { comparisons } from '../../data/comparisons';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Website blocker comparisons"
+  description="Compare torwache with BlockSite, StayFocusd, Cold Turkey Blocker, and Freedom across features, privacy, accounts, schedules, and price."
+>
+  <div class="hub-page shell compact-hub">
+    <header class="hub-hero">
+      <h1>Choose the right amount of blocker.</h1>
+      <p class="content-intro">
+        Some tools are cross-device focus systems. Others are timers, app blockers, or hard
+        locks. torwache is a local Chrome list. These comparisons make the trade-offs explicit.
+      </p>
+    </header>
+    <div class="content-card-grid comparison-cards">
+      {
+        comparisons.map((comparison, index) => (
+          <a class="content-card" href={`/compare/${comparison.slug}/`}>
+            <span class="card-number">0{index + 1}</span>
+            <span class="card-label">Feature comparison</span>
+            <h2>torwache vs {comparison.name}</h2>
+            <p>{comparison.intro}</p>
+            <span class="card-arrow" aria-hidden="true">Compare →</span>
+          </a>
+        ))
+      }
+    </div>
+  </div>
+</BaseLayout>

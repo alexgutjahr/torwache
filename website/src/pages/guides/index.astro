@@ -1,0 +1,107 @@
+---
+import { comparisons } from '../../data/comparisons';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const guides = [
+  {
+    href: '/guides/how-to-block-websites-on-chrome/',
+    label: 'How-to guide',
+    title: 'How to block websites on Chrome',
+    description: 'The quickest route from a distracting domain to a block that stays put.',
+  },
+  {
+    href: '/guides/website-blocker-extension/',
+    label: 'Buyer’s guide',
+    title: 'What to check before installing a website blocker extension',
+    description:
+      'Permissions, data collection, bypasses, schedules, and the features you may not need.',
+  },
+  {
+    href: '/guides/free-website-blocker/',
+    label: 'Plain-English guide',
+    title: 'What “free website blocker” should actually mean',
+    description:
+      'How to spot trials, accounts, advertising, and data-funded products before installing.',
+  },
+  {
+    href: '/guides/open-source-website-blocker/',
+    label: 'Technical guide',
+    title: 'Why use an open-source website blocker?',
+    description:
+      'The practical value of readable permissions, local storage, and inspectable code.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  name: 'Website blocker guides and comparisons',
+  description:
+    'Practical guides to blocking distracting websites in Chrome and choosing the right website blocker.',
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: guides.map((guide, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      url: new URL(guide.href, Astro.site ?? 'https://torwache.com'),
+      name: guide.title,
+    })),
+  },
+};
+---
+
+<BaseLayout
+  title="Website blocker guides and comparisons"
+  description="Practical guides to blocking distracting websites in Chrome, choosing a website blocker extension, and comparing popular blockers."
+  structuredData={structuredData}
+>
+  <div class="hub-page shell">
+    <header class="hub-hero">
+      <h1>Website blocking, without the productivity theatre.</h1>
+      <p class="content-intro">
+        Clear answers about blocking websites on Chrome, extension permissions, privacy,
+        pricing, and how the popular tools differ.
+      </p>
+    </header>
+
+    <section class="hub-section" aria-labelledby="guides-heading">
+      <div class="section-heading">
+        <h2 id="guides-heading">Practical guides</h2>
+      </div>
+      <div class="content-card-grid">
+        {
+          guides.map((guide, index) => (
+            <a class="content-card" href={guide.href}>
+              <span class="card-number">0{index + 1}</span>
+              <span class="card-label">{guide.label}</span>
+              <h3>{guide.title}</h3>
+              <p>{guide.description}</p>
+              <span class="card-arrow" aria-hidden="true">Read →</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="hub-section" aria-labelledby="compare-heading">
+      <div class="section-heading">
+        <h2 id="compare-heading">Website blocker comparisons</h2>
+        <p>
+          Factual, source-linked comparisons. A feature is only an advantage if you actually
+          want it.
+        </p>
+      </div>
+      <div class="comparison-link-list">
+        {
+          comparisons.map((comparison) => (
+            <a href={`/compare/${comparison.slug}/`}>
+              <span>torwache vs</span>
+              <strong>{comparison.name}</strong>
+              <span aria-hidden="true">→</span>
+            </a>
+          ))
+        }
+      </div>
+    </section>
+  </div>
+</BaseLayout>

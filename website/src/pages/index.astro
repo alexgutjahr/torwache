@@ -1,0 +1,285 @@
+---
+import BlockedPreview from '../components/BlockedPreview.astro';
+import BlocklistPreview from '../components/BlocklistPreview.astro';
+import SourceLink from '../components/SourceLink.astro';
+import StoreLink from '../components/StoreLink.astro';
+import { site } from '../config';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+/* Until the listing is live, the repository is the only link that actually goes
+   somewhere, so it carries the filled face instead of the store button. */
+const storeReady = Boolean(site.chromeWebStoreUrl);
+
+const steps = [
+  {
+    title: 'Add a domain',
+    body: 'Type youtube.com and hit Block. Leave the box selected if its subdomains should count too.',
+  },
+  {
+    title: 'Chrome does the refusing',
+    body: 'The extension hands Chrome one rule per domain. Chrome enforces it in its own network stack, and no blocklist or navigation data is sent away.',
+  },
+  {
+    title: 'You hit a wall',
+    body: 'Instead of the site you get a plain page saying why. No countdown, no five more minutes, no bypass button.',
+  },
+];
+
+const permissions = [
+  {
+    name: 'storage',
+    what: 'Keeps your blocklist and theme on this device.',
+    why: 'Without it the list wouldn’t survive closing the tab. Local storage only, never cloud sync.',
+  },
+  {
+    name: 'declarativeNetRequest',
+    what: 'Hands Chrome one rule per domain you’ve switched on.',
+    why: 'Chrome does the refusing, in its own network stack. The extension declares the rules and never sees a request.',
+  },
+  {
+    name: 'webNavigation',
+    what: 'Tells the extension a navigation happened, so a blocked one gets a readable page.',
+    why: 'It also catches sites that answer their own navigation from a service worker cache, which network rules can’t see.',
+  },
+];
+
+const faq = [
+  {
+    q: 'Does it run analytics?',
+    a: 'Not in the extension — no telemetry, error reporting, remote assets, or background network requests. Its external links open only when clicked. This website is a separate thing and uses Fathom for aggregate page views; Fathom is not packaged with the extension.',
+  },
+  {
+    q: 'Are there ads?',
+    a: 'No. The extension injects nothing into visited pages and cannot read or modify their contents.',
+  },
+  {
+    q: 'Does it cost anything?',
+    a: 'The current release is free. It contains no paid tier, trial, licence key, or upgrade screen, and its source is available under the Zero-Clause BSD licence.',
+  },
+  {
+    q: 'Do I need an account?',
+    a: 'No. There’s nothing to sign up for and nothing to sign in to.',
+  },
+  {
+    q: 'Does it ask to read and change data on every website?',
+    a: 'No. That prompt comes from host permissions, and torwache declares none. It has no content scripts either, so it can’t read or modify page contents.',
+  },
+  {
+    q: 'Can you see my browsing?',
+    a: 'The developer can’t. Chrome does hand the extension navigation URLs through webNavigation. Each full URL is immediately reduced to its hostname; paths, queries, fragments, and credentials are discarded. The hostname is used in memory for the current check and shown on the local block page when blocked. Browsing history is never written to extension storage or transmitted.',
+  },
+  {
+    q: 'Can I sync my blocklist between devices?',
+    a: 'No. It lives in local extension storage and stays there. Syncing would mean an account, or at minimum handing a list of “sites I can’t stop visiting” to somebody’s server. Copy it across yourself — it’s a list of domains.',
+  },
+  {
+    q: 'Does it have streaks, scores, or a productivity dashboard?',
+    a: 'No. It blocks websites.',
+  },
+  {
+    q: 'Can I get past the block page without touching the list?',
+    a: 'No. No bypass button, no timer, no “five more minutes”. The page is a dead end on purpose. Open the list and switch the entry off if you really mean it.',
+  },
+  {
+    q: 'Can I lock myself out by blocking the blocklist?',
+    a: 'No. The blocklist lives at a chrome-extension:// address, and only http and https are ever considered for blocking. An extension id has no dot in it either, so it can’t be entered as a domain. There’s a test for that.',
+  },
+  {
+    q: 'Does it block tabs I already have open?',
+    a: 'Not until they navigate or reload. Blocking applies to requests, and an open page has already made its. Shutting it down retroactively would mean reading the URL of every tab you have open, which needs a permission whose warning reads “Read your browsing history”. Bad trade for saving you one keystroke.',
+  },
+  {
+    q: 'Will it ask for more permissions in an update?',
+    a: 'The current release asks for three and needs all three. If a future update added a permission that triggers a warning, Chrome would require your approval before the extension could run again. Read that prompt carefully — for anyone’s extension, not just this one.',
+  },
+  {
+    q: 'Should I trust a random blocker from the internet?',
+    a: 'No, and that’s rather the point. The source is strict TypeScript split into small WXT entrypoints and modules, with tests for permissions, storage, domain handling, packaging, and real Chrome behavior. WXT and Vite produce the browser-native package; the only runtime dependency is tldts for Public Suffix List-aware domain validation. Go read it. Privacy claims are easier to believe when you can check them yourself.',
+  },
+];
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.name,
+  applicationCategory: 'BrowserApplication',
+  operatingSystem: 'Chrome',
+  description: site.description,
+  url: site.url,
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'USD',
+  },
+  isAccessibleForFree: true,
+  codeRepository: site.repositoryUrl,
+  publisher: { '@id': `${site.url}/#organization` },
+};
+---
+
+<BaseLayout structuredData={structuredData}>
+  <section class="hero">
+    <div class="shell hero-grid">
+      <div class="hero-copy">
+        <h1>Some sites should simply <em>not open</em>.</h1>
+        <p class="lede">
+          Dead-simple website blocking for Chrome. Put a domain on your list and it stops
+          opening. Switch it off and it’s back. There’s nothing else to learn.
+        </p>
+
+        <div class="actions">
+          {
+            storeReady ? (
+              <StoreLink size="lg" variant="solid" />
+            ) : (
+              <a class="btn btn-solid btn-lg" href={site.releasesUrl}>Install from a release</a>
+            )
+          }
+          <SourceLink size="lg" variant="quiet" />
+        </div>
+
+        <p class="store-status">
+          {storeReady ? 'Available for Chrome.' : 'Chrome Web Store listing pending.'}
+        </p>
+      </div>
+
+      <figure class="figure hero-figure">
+        <div class="figure-frame"><BlocklistPreview /></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="how">
+    <div class="shell">
+      <header class="section-head">
+        <h2>It works like this</h2>
+        <p>There’s no onboarding, because there’s nothing to onboard.</p>
+      </header>
+
+      <ol class="steps">
+        {
+          steps.map((step, index) => (
+            <li>
+              <span class="step-index">{String(index + 1).padStart(2, '0')}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="shell split split-reverse">
+      <div class="split-copy">
+        <p class="statement">
+          Most blockers want to become your life coach. This one just blocks websites.
+        </p>
+        <p>
+          No accounts. No timers, streaks, schedules or point scores. No password gate that a
+          determined afternoon gets past anyway. Add a domain and it stops opening, switch it
+          off when you actually want it back. That’s the entire surface area.
+        </p>
+      </div>
+
+      <figure class="figure figure-narrow">
+        <div class="figure-frame"><BlockedPreview /></div>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="permissions">
+    <div class="shell">
+      <header class="section-head">
+        <h2>Three permissions, and why</h2>
+        <p>Every extension asks for something. Here’s the whole list, and what each one does.</p>
+      </header>
+
+      <dl class="permissions">
+        {
+          permissions.map(({ name, what, why }) => (
+            <div class="permission">
+              <dt>
+                <code>{name}</code>
+              </dt>
+              <dd>
+                {what}
+                <span>{why}</span>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+
+      <p class="note">
+        No host permissions. No content scripts. It can’t read or change page contents,
+        and it makes no background network requests. External links open only when clicked.
+      </p>
+    </div>
+  </section>
+
+  <section class="section resources" aria-labelledby="resources-heading">
+    <div class="shell">
+      <header class="section-head">
+        <h2 id="resources-heading">Website blocker guides, without filler.</h2>
+        <p>
+          Learn the quickest way to block websites on Chrome, what permissions to check,
+          and when a larger focus tool is worth the extra machinery.
+        </p>
+      </header>
+      <div class="comparison-link-list resource-links">
+        <a href="/guides/how-to-block-websites-on-chrome/">
+          <span>How-to</span>
+          <strong>Block websites on Chrome</strong>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="/guides/website-blocker-extension/">
+          <span>Checklist</span>
+          <strong>Choose a website blocker extension</strong>
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="/compare/">
+          <span>Compare</span>
+          <strong>See how popular website blockers differ</strong>
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="questions">
+    <div class="shell">
+      <header class="section-head">
+        <h2>Questions</h2>
+        <p>The ones worth asking about anything you let into your browser.</p>
+      </header>
+
+      <dl class="faq">
+        {
+          faq.map(({ q, a }) => (
+            <div>
+              <dt>{q}</dt>
+              <dd>{a}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section closing">
+    <div class="shell closing-inner">
+      <div>
+        <p class="closing-line">Free, local, and open source.</p>
+        <p class="closing-sub">
+          The current release has no account, telemetry, paid tier, or hosted service.
+        </p>
+      </div>
+      <div class="closing-links">
+        <a href={site.releasesUrl}>Install from a release <span>↗</span></a>
+        <a href={site.repositoryUrl}>Read the source <span>↗</span></a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

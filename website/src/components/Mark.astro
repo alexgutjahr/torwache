@@ -1,0 +1,18 @@
+---
+import { brandAssets } from '../assets';
+
+interface Props {
+  label?: string;
+  class?: string;
+}
+
+const { label = '', class: className } = Astro.props;
+---
+
+<img
+  class:list={['mark', className]}
+  src={brandAssets.markUrl}
+  width="64"
+  height="64"
+  alt={label}
+/>

@@ -1,0 +1,68 @@
+---
+import Mark from './Mark.astro';
+
+const entries = [
+  { domain: 'youtube.com', on: true, subdomains: true },
+  { domain: 'reddit.com', on: false, subdomains: true },
+];
+---
+
+<div class="product-preview" aria-hidden="true" inert>
+  <header class="product-preview__header">
+    <span class="product-preview__brand"><Mark /><strong>torwache</strong></span>
+    <span class="product-preview__count">1 of 2 active</span>
+  </header>
+
+  <form class="card product-form">
+    <label for="preview-domain">Block a site</label>
+    <div class="product-add-row">
+      <input
+        id="preview-domain"
+        class="field"
+        placeholder="youtube.com"
+        autocomplete="off"
+        tabindex="-1"
+      />
+      <button class="btn" type="button" tabindex="-1">Block</button>
+    </div>
+    <label class="check-label">
+      <input class="checkbox" type="checkbox" checked tabindex="-1" />
+      Include subdomains
+    </label>
+  </form>
+
+  <ul class="product-list">
+    {
+      entries.map((entry) => (
+        <li class="entry card product-entry" data-off={entry.on ? undefined : ''}>
+          <div class="product-entry__row">
+            <span class="entry-domain product-entry__domain">{entry.domain}</span>
+            <span class="product-entry__actions">
+              <button
+                class="switch"
+                type="button"
+                role="switch"
+                aria-checked={entry.on}
+                tabindex="-1"
+              />
+              <button class="product-remove" type="button" tabindex="-1">Remove</button>
+            </span>
+          </div>
+          <label class="check-label">
+            <input
+              class="checkbox"
+              type="checkbox"
+              checked={entry.subdomains}
+              tabindex="-1"
+            />
+            Include subdomains
+          </label>
+        </li>
+      ))
+    }
+  </ul>
+
+  <p class="product-preview__footer">
+    <span class="status-dot"></span>Chrome is enforcing 1 block rule
+  </p>
+</div>

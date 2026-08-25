@@ -1,0 +1,125 @@
+---
+import { site } from '../../config';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'TechArticle',
+  headline: 'Why use an open-source website blocker?',
+  description:
+    'How source code makes browser extension permissions, storage, network requests, and release contents verifiable.',
+  dateModified: '2026-08-25',
+  proficiencyLevel: 'Beginner',
+};
+---
+
+<ContentLayout
+  title="Why use an open-source website blocker?"
+  metaTitle="Open-source website blocker for Chrome"
+  description="Learn what an open-source website blocker lets you verify: permissions, local storage, network requests, release contents, and blocking behavior."
+  eyebrow="Technical guide"
+  intro="Open source does not magically make an extension trustworthy. It does make important claims inspectable: what permissions are declared, where the list is stored, and whether anything is sent away."
+  updated="August 25, 2026"
+  structuredData={structuredData}
+  toc={[
+    { href: '#verify', label: 'What you can verify' },
+    { href: '#limits', label: 'What source cannot prove alone' },
+    { href: '#audit', label: 'A five-minute audit' },
+    { href: '#architecture', label: 'How torwache is built' },
+  ]}
+>
+  <section id="verify">
+    <h2>Four privacy claims source code can support</h2>
+    <dl class="decision-list">
+      <div>
+        <dt>Requested permissions</dt>
+        <dd>The manifest lists the browser capabilities the extension asks Chrome to grant.</dd>
+      </div>
+      <div>
+        <dt>Network requests</dt>
+        <dd>
+          You can search for request clients, remote endpoints, telemetry libraries, and update
+          services.
+        </dd>
+      </div>
+      <div>
+        <dt>Storage location</dt>
+        <dd>
+          You can see whether the blocklist uses local storage, browser sync, or an external
+          account.
+        </dd>
+      </div>
+      <div>
+        <dt>Page access</dt>
+        <dd>
+          Content scripts and host permissions reveal whether code can run inside visited
+          websites.
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <section id="limits">
+    <h2>A public repository is not the whole trust chain</h2>
+    <p>
+      Source availability does not automatically prove that a store package was built from that
+      exact revision. Large projects may also be technically open while remaining difficult to
+      audit because the shipped bundle is generated, minified, or dependent on remote services.
+    </p>
+    <p>
+      Prefer small projects with reproducible packaging, readable release notes, few runtime
+      dependencies, and a manifest that matches the store permission prompt.
+    </p>
+  </section>
+
+  <section id="audit">
+    <h2>A five-minute browser-extension audit</h2>
+    <ol class="steps compact-steps">
+      <li>
+        <span>1</span><div><h3>Open the manifest</h3><p>
+          Read the permissions and host permissions first.
+        </p></div>
+      </li>
+      <li>
+        <span>2</span><div><h3>Search for network APIs</h3><p>
+          Look for <code>fetch</code>, XMLHttpRequest, WebSocket, telemetry, and remote URLs.
+        </p></div>
+      </li>
+      <li>
+        <span>3</span><div><h3>Find the storage calls</h3><p>
+          Confirm whether data is stored locally, synchronized, or sent to a backend.
+        </p></div>
+      </li>
+      <li>
+        <span>4</span><div><h3>Check content scripts</h3><p>
+          Understand which websites can run extension code and what that code reads.
+        </p></div>
+      </li>
+      <li>
+        <span>5</span><div><h3>Compare the package</h3><p>
+          Look for a documented build or packaging command and inspect the release artifact.
+        </p></div>
+      </li>
+    </ol>
+  </section>
+
+  <section id="architecture">
+    <h2>Why torwache is intentionally easy to inspect</h2>
+    <p>
+      The source is strict TypeScript organized as small WXT entrypoints and modules for the
+      blocklist, domain rules, storage, navigation guard, and blocked page. WXT and Vite compile
+      it to browser-native JavaScript, HTML, and CSS; there is no runtime UI framework. The only
+      runtime dependency is tldts, used to reject public suffixes such as <code>co.uk</code> and
+      private suffixes such as <code>github.io</code>.
+    </p>
+    <p>
+      You can <a href={site.repositoryUrl}>read the repository</a>, inspect the typed
+      <a href={`${site.repositoryUrl}/blob/main/wxt.config.ts`}>WXT configuration</a>, or
+      <a href={site.releasesUrl}>download the tested release zip and its checksum</a>. The build
+      generates the Manifest V3 file. Automated checks fail if its permissions or capabilities
+      expand unexpectedly, and the package test verifies the ZIP's deterministic output and Store
+      layout. The point is not “trust us because open source.” The point is that you do not have
+      to.
+    </p>
+  </section>
+</ContentLayout>

@@ -1,0 +1,82 @@
+---
+import SourceLink from '../components/SourceLink.astro';
+import StoreLink from '../components/StoreLink.astro';
+import { site } from '../config';
+import BaseLayout from './BaseLayout.astro';
+
+interface TocItem {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  metaTitle?: string;
+  description: string;
+  eyebrow: string;
+  intro: string;
+  updated?: string;
+  toc?: TocItem[];
+  structuredData?: Record<string, unknown> | Record<string, unknown>[] | undefined;
+}
+
+const {
+  title,
+  metaTitle = title,
+  description,
+  eyebrow,
+  intro,
+  updated,
+  toc = [],
+  structuredData,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={metaTitle}
+  description={description}
+  ogType="article"
+  structuredData={structuredData}
+>
+  <article class="content-page">
+    <header class="content-hero shell">
+      <a class="content-back" href="/guides/">Guides &amp; comparisons</a>
+      <p class="document-meta">
+        <span>{eyebrow}</span>{updated && <span>Fact-checked {updated}</span>}
+      </p>
+      <h1>{title}</h1>
+      <p class="content-intro">{intro}</p>
+    </header>
+
+    <div class="content-grid shell">
+      {
+        toc.length > 0 && (
+          <aside class="article-nav" aria-label="On this page">
+            <p>On this page</p>
+            <nav>
+              {toc.map(({ href, label }) => (
+                <a href={href}>{label}</a>
+              ))}
+            </nav>
+          </aside>
+        )
+      }
+
+      <div class="prose">
+        <slot />
+
+        <aside class="article-cta">
+          <h2>Block the site. Keep everything else.</h2>
+          <p>
+            {site.name} is free and open source, keeps its blocklist local, and has no account,
+            ads, timers, streaks, or analytics inside the extension.
+          </p>
+          <div class="actions">
+            <StoreLink />
+            <SourceLink />
+          </div>
+        </aside>
+      </div>
+    </div>
+  </article>
+</BaseLayout>

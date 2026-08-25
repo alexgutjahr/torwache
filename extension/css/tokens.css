@@ -1,0 +1,32 @@
+@import "../../shared/styles/tokens.css";
+
+/* Expose the shared product tokens to Tailwind. The inline mode keeps the var
+   reference, so light-dark() still follows the active colour scheme. */
+@theme inline {
+  --color-bg:        var(--bx-bg);
+  --color-card:      var(--bx-card);
+  --color-raised:    var(--bx-raised);
+  --color-line:      var(--bx-line);
+  --color-fg:        var(--bx-fg);
+  --color-muted:     var(--bx-muted);
+  --color-faint:     var(--bx-faint);
+  --color-accent:    var(--bx-accent);
+  --color-soft:      var(--bx-soft);
+  --color-on-accent: var(--bx-on-accent);
+  --color-off:       var(--bx-off);
+  --color-danger:    var(--bx-danger);
+
+  --font-sans: var(--bx-font-sans);
+
+  --radius-sm: var(--bx-radius-sm);
+  --radius-md: var(--bx-radius);
+  --radius-lg: var(--bx-radius);
+  --radius-xl: var(--bx-radius-lg);
+
+  --animate-rise: rise 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(5px); }
+  to   { opacity: 1; transform: none; }
+}

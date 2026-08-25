@@ -1,0 +1,89 @@
+---
+import ComparisonTable from '../../components/ComparisonTable.astro';
+import {
+  comparisonReview,
+  comparisons,
+  type Comparison,
+} from '../../data/comparisons';
+import ContentLayout from '../../layouts/ContentLayout.astro';
+
+export function getStaticPaths() {
+  return comparisons.map((comparison) => ({
+    params: { competitor: comparison.slug },
+    props: { comparison },
+  }));
+}
+
+interface Props {
+  comparison: Comparison;
+}
+
+const { comparison } = Astro.props;
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: comparison.metaTitle,
+  description: comparison.description,
+  dateModified: comparisonReview.machineDate,
+};
+---
+
+<ContentLayout
+  title={`torwache vs ${comparison.name}`}
+  metaTitle={comparison.metaTitle}
+  description={comparison.description}
+  eyebrow="Website blocker comparison"
+  intro={comparison.intro}
+  updated={comparisonReview.label}
+  structuredData={structuredData}
+  toc={[
+    { href: '#short-answer', label: 'The short answer' },
+    { href: '#features', label: 'Feature comparison' },
+    { href: '#choose-competitor', label: `Choose ${comparison.name} if` },
+    { href: '#choose-torwache', label: 'Choose torwache if' },
+    { href: '#sources', label: 'Sources' },
+  ]}
+>
+  <section id="short-answer">
+    <h2>The short answer</h2>
+    <p class="answer-lede">{comparison.shortAnswer}</p>
+    <aside class="comparison-note">
+      <span>Different jobs</span>
+      <p>
+        This is not a winner-takes-all ranking. It compares the products as currently
+        documented and highlights which kind of user each design serves.
+      </p>
+    </aside>
+  </section>
+
+  <section id="features">
+    <h2>Feature-by-feature comparison</h2>
+    <ComparisonTable competitor={comparison.name} rows={comparison.rows} />
+  </section>
+
+  <section id="choose-competitor">
+    <h2>Choose {comparison.name} if…</h2>
+    <ul class="check-list">
+      {comparison.bestFor.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section id="choose-torwache">
+    <h2>Choose torwache if…</h2>
+    <ul class="check-list">
+      {comparison.chooseTorwache.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section id="sources">
+    <h2>Sources and update policy</h2>
+    <p>
+      Competitor features and pricing change. This comparison was checked against the following
+      official sources on {comparisonReview.label}. Verify anything purchase-critical on the
+      vendor’s current site.
+    </p>
+    <ul class="source-list">
+      {comparison.sources.map(({ label, url }) => <li><a href={url}>{label}</a></li>)}
+    </ul>
+  </section>
+</ContentLayout>

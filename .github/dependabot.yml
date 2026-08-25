@@ -1,0 +1,28 @@
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    # Keep shipped/runtime packages separate from build and test tooling so their
+    # risk and release impact remain visible during review.
+    groups:
+      build-tooling:
+        patterns: ['*']
+        dependency-type: development
+      runtime:
+        patterns: ['*']
+        dependency-type: production
+    # Astro's checker currently requires TypeScript's pre-7 programmatic API.
+    # Remove this when https://github.com/withastro/roadmap/discussions/1321 lands.
+    ignore:
+      - dependency-name: typescript
+        versions: ['>=7.0.0']
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']

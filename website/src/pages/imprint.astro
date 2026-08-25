@@ -1,0 +1,84 @@
+---
+import { isImprintComplete, site } from '../config';
+import LegalLayout from '../layouts/LegalLayout.astro';
+
+const { legal } = site;
+const registerEntry =
+  legal.registerCourt && legal.registerNumber
+    ? `${legal.registerCourt}, ${legal.registerNumber}`
+    : null;
+---
+
+<LegalLayout
+  title="Imprint"
+  eyebrow="Legal notice"
+  description="Provider information and contact details for torwache.com."
+  noindex={!isImprintComplete}
+>
+  <h1>Imprint</h1>
+
+  {
+    !isImprintComplete && (
+      <aside class="launch-notice" aria-label="Launch requirement">
+        <strong>Complete before publishing</strong>
+        <p>
+          The commercial register court and number are still missing in{' '}
+          <code>website/src/config.ts</code>. Section 5 DDG requires them for a company entered
+          in the register. This page stays out of search engines until they are filled in.
+        </p>
+      </aside>
+    )
+  }
+
+  <h2>Information under Section 5 DDG</h2>
+  <dl>
+    <dt>Provider</dt>
+    <dd>{legal.operatorName}</dd>
+
+    <dt>Represented by</dt>
+    <dd>{legal.representedBy}, Managing Director</dd>
+
+    <dt>Address</dt>
+    <dd>
+      {legal.streetAddress}<br />
+      {legal.locality}<br />
+      {legal.country}
+    </dd>
+
+    <dt>Email</dt>
+    <dd><a href={`mailto:${legal.email}`}>{legal.email}</a></dd>
+
+    <dt>Commercial register</dt>
+    <dd>{registerEntry ?? 'To be supplied before launch'}</dd>
+
+    <dt>VAT identification number</dt>
+    <dd>{legal.vatId} (Section 27a UStG)</dd>
+  </dl>
+
+  <h2>Responsible for content under Section 18 (2) MStV</h2>
+  <p>
+    {legal.representedBy}, {legal.operatorName}, {legal.streetAddress}, {legal.locality},{' '}
+    {legal.country}
+  </p>
+
+  <h2>Consumer dispute resolution</h2>
+  <p>
+    We are neither willing nor obliged to participate in dispute resolution proceedings before a
+    consumer arbitration board (Section 36 VSBG).
+  </p>
+
+  <h2>Open-source project</h2>
+  <p>
+    torwache is distributed under the Zero-Clause BSD licence. Source code, releases, and the issue
+    tracker are on <a href={site.repositoryUrl}>GitHub</a>. The licence carries no warranty; the
+    extension is provided as is.
+  </p>
+
+  <h2>Contact</h2>
+  <p>
+    Write to <a href={`mailto:${legal.email}`}>{legal.email}</a> for anything that needs a
+    reply from a person. Bug reports and feature requests are better placed in the public{' '}
+    <a href={site.issuesUrl}>issue tracker</a>, where they are visible to everyone — so do not
+    put anything private in one.
+  </p>
+</LegalLayout>
