@@ -31,6 +31,11 @@ remotely hosted code. It loads no remote assets, makes no background network req
 send blocklist or navigation data to the developer or any third party. Its Website, Source, and
 author links open external pages only after you click them; those links use `rel="noreferrer"`.
 
+The use of information received from Chrome APIs adheres to the Chrome Web Store User Data Policy,
+including the Limited Use requirements. torwache uses blocklist and navigation information only to
+provide its user-facing website-blocking feature. It does not sell or transfer that information,
+use it for advertising or credit decisions, or allow people to read it.
+
 ### Data the extension handles
 
 - **Your blocklist.** Domain names, enabled state, and subdomain preferences are stored in

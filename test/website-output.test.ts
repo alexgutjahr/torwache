@@ -145,6 +145,8 @@ describe('static website output', () => {
     expect(contact).toContain('mailto:privacy@torwache.com');
     expect(contact).toContain('mailto:security@torwache.com');
     expect(privacy).toContain('mailto:privacy@torwache.com');
+    expect(privacy).toContain('Chrome Web Store User Data Policy');
+    expect(privacy).toContain('Limited Use requirements');
     expect(`${contact}${privacy}`).not.toContain('@iconic.one');
   });
 
