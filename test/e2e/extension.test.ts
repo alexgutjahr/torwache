@@ -55,7 +55,16 @@ async function clickWhenReady(page: Page, selector: string): Promise<void> {
 test('the unpacked extension manages and enforces a blocklist in Chrome', {
   timeout: 60_000,
 }, async () => {
-  const server = createServer((_request, response) => {
+  const server = createServer((request, response) => {
+    if (request.url === '/open-blocked-link') {
+      const address = server.address();
+      assert.ok(address && typeof address === 'object');
+      response.setHeader('content-type', 'text/html');
+      response.end(
+        `<a id="blocked-link" target="_blank" href="http://blocked.test:${address.port}/from-link?token=sensitive">Open blocked link</a>`,
+      );
+      return;
+    }
     response.end('the block rule did not run');
   });
   await new Promise<void>((resolve, reject) => {
@@ -105,6 +114,25 @@ test('the unpacked extension manages and enforces a blocklist in Chrome', {
     assert.equal(blockedLocation.search, '?host=blocked.test');
     assert.ok(!blocked.url().includes('sensitive'));
     assert.equal(await blocked.$eval('#host', (node) => node.textContent), 'blocked.test');
+
+    const launcher = await browser.newPage();
+    await launcher.goto(`http://127.0.0.1:${address.port}/open-blocked-link`);
+    const linkedTarget = browser.waitForTarget(
+      (target) => target.type() === 'page' && target.opener() === launcher.target(),
+      { timeout: CHROME_TIMEOUT },
+    );
+    await launcher.click('#blocked-link');
+    const linked = await (await linkedTarget).page();
+    assert.ok(linked);
+    try {
+      await linked.waitForFunction(() => location.pathname.endsWith('/blocked.html'), {
+        timeout: CHROME_TIMEOUT,
+      });
+    } catch {
+      assert.fail(`linked navigation ended at ${linked.url()}`);
+    }
+    assert.equal(new URL(linked.url()).search, '?host=blocked.test');
+    assert.ok(!linked.url().includes('sensitive'));
 
     await manager.bringToFront();
 

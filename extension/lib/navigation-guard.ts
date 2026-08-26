@@ -24,6 +24,7 @@ interface GuardDependencies {
 export function createNavigationGuard({ isBlocked, showBlockedPage }: GuardDependencies) {
   const current = new Map<number, { sequence: number; host: string | null }>();
   const pending = new Map<string, Promise<void>>();
+  const pendingErrors = new Map<string, Promise<void>>();
 
   function begin(navigation: Navigation): Promise<void> {
     if (!isTopLevel(navigation)) return Promise.resolve();
@@ -43,13 +44,41 @@ export function createNavigationGuard({ isBlocked, showBlockedPage }: GuardDepen
     return task;
   }
 
-  /** Resolves an error only when its host still belongs to the current navigation. */
+  /**
+   * Retries after Chrome has established its error document. A custom-page
+   * update made during onBeforeNavigate can lose to the original navigation in
+   * a newly created tab. Duplicate error events share the same retry.
+   */
   function checkError(navigation: Navigation): Promise<void> {
     if (!isTopLevel(navigation)) return Promise.resolve();
     const host = hostOf(navigation.url);
     const latest = current.get(navigation.tabId);
     if (!host || !latest || latest.host !== host) return Promise.resolve();
-    return check({ tabId: navigation.tabId, host }, latest.sequence);
+
+    const checkNavigation = { tabId: navigation.tabId, host };
+    const key = `${navigation.tabId}:${latest.sequence}`;
+    const active = pendingErrors.get(key);
+    if (active) return active;
+
+    const task = retryAfterError(checkNavigation, latest.sequence, key).finally(() =>
+      pendingErrors.delete(key),
+    );
+    pendingErrors.set(key, task);
+    return task;
+  }
+
+  async function retryAfterError(
+    navigation: NavigationCheck,
+    sequence: number,
+    key: string,
+  ): Promise<void> {
+    try {
+      await pending.get(key);
+    } catch {
+      // Give the post-error attempt its own chance after an earlier check failed.
+    }
+    if (!isCurrent(navigation, sequence)) return;
+    await check(navigation, sequence);
   }
 
   async function guard(navigation: NavigationCheck, sequence: number): Promise<void> {

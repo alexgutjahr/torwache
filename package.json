@@ -1,6 +1,6 @@
 {
   "name": "torwache",
-  "version": "1.6.2",
+  "version": "1.7.0",
   "private": true,
   "description": "A dead-simple website blocker for Chrome. No tracking, no syncing, no nonsense.",
   "homepage": "https://torwache.com/",

@@ -9,6 +9,13 @@ Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/); version
 
 Nothing yet.
 
+## 1.7.0 — 2026-08-26
+
+### Fixed
+
+- Blocked links opened into a new tab now retry the local blocked-page navigation after Chrome
+  establishes its network error page.
+
 ## 1.6.2 — 2026-08-25
 
 ### Changed
