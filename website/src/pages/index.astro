@@ -112,6 +112,7 @@ const structuredData = {
     priceCurrency: 'USD',
   },
   isAccessibleForFree: true,
+  installUrl: site.chromeWebStore.url,
   codeRepository: site.repositoryUrl,
   publisher: { '@id': `${site.url}/#organization` },
 };
@@ -277,7 +278,7 @@ const structuredData = {
         </p>
       </div>
       <div class="closing-links">
-        <a href={site.releasesUrl}>Install from a release <span>↗</span></a>
+        <a href={site.chromeWebStore.url}>Add to Chrome <span>↗</span></a>
         <a href={site.repositoryUrl}>Read the source <span>↗</span></a>
       </div>
     </div>

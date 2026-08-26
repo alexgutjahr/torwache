@@ -42,8 +42,10 @@ switch in the top right.
 
 ## Install
 
-The Chrome Web Store listing is pending. Until it is live, install a checked release archive or
-build the extension from source:
+[Add torwache to Chrome](https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj).
+Chrome installs store updates automatically.
+
+If you would rather inspect and install a release archive yourself:
 
 1. Grab `torwache-<version>-chrome.zip` from
    [Releases](https://github.com/alexgutjahr/torwache/releases), or clone and run
@@ -54,7 +56,7 @@ build the extension from source:
    over the same folder, or you get a second install with an empty list.
 4. `chrome://extensions` → **Developer mode** → **Load unpacked** → pick the folder.
 
-Either way, click the toolbar icon to open your blocklist.
+Whichever route you choose, click the toolbar icon to open your blocklist.
 
 ### Verifying the download
 
@@ -68,8 +70,8 @@ You want `torwache-<version>-chrome.zip: OK`. If you get anything else, don't in
 
 ## Staying up to date
 
-An unpacked installation does not update itself, so watch the releases until the Chrome Web Store
-listing is live:
+Chrome Web Store installations update automatically. An unpacked installation does not, so watch
+the releases if you installed one manually:
 
 - **Atom/RSS** — `https://github.com/alexgutjahr/torwache/releases.atom` in your feed reader.
   No account or email needed; it is GitHub's plain Atom release feed.

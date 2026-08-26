@@ -44,13 +44,15 @@ describe('static website output', () => {
     expect(html).toContain('<meta name="application-name" content="torwache">');
   });
 
-  test('the pending store review does not expose an unavailable listing', () => {
+  test('the published Chrome Web Store listing is the primary install route', () => {
     const html = readFileSync(outputPath('/'), 'utf8');
 
-    expect(html).toContain('Chrome Web Store listing pending.');
-    expect(html).not.toContain(
+    expect(html).toContain('Available for Chrome.');
+    expect(html).toContain(
       'https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj',
     );
+    expect(html).toContain('Add to Chrome');
+    expect(html).not.toContain('Chrome Web Store listing pending.');
   });
 
   test.each(['/about/', '/contact/', '/privacy/'])(
@@ -144,6 +146,12 @@ describe('static website output', () => {
       name: 'torwache',
       publisher: { '@id': 'https://torwache.com/#organization' },
     });
+    expect(schemas).toContainEqual(
+      expect.objectContaining({
+        '@type': 'SoftwareApplication',
+        installUrl: 'https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj',
+      }),
+    );
   });
 
   test('public contact routes use torwache role addresses', () => {

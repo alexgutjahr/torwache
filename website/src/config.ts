@@ -15,10 +15,9 @@ export const site = {
   issuesUrl: 'https://github.com/alexgutjahr/torwache/issues',
 
   chromeWebStore: {
-    // The extension ID makes this URL permanent. Keep `published` false until
-    // the anonymous listing resolves to torwache instead of `empty-title`.
+    // The extension ID makes this URL permanent even if the listing slug changes.
     url: 'https://chromewebstore.google.com/detail/ibffnlnhgaoppogfnaejknianccnknlj',
-    published: false,
+    published: true,
   },
 
   contacts: contactEmails,
