@@ -20,8 +20,8 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
     "@vercel/functions": "^3.9.5",
-    "astro": "^7.2.6",
-    "simple-icons": "^16.28.0",
+    "astro": "^7.2.9",
+    "simple-icons": "^16.29.0",
     "turndown": "^7.2.4"
   },
   "devDependencies": {
