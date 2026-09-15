@@ -49,6 +49,6 @@
     "node": "24.x"
   },
   "dependencies": {
-    "tldts": "^7.4.11"
+    "tldts": "^7.4.12"
   }
 }
