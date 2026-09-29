@@ -30,14 +30,14 @@
     "package": "npm run check && wxt zip && node tools/checksum.mjs"
   },
   "devDependencies": {
-    "@biomejs/biome": "^2.5.10",
+    "@biomejs/biome": "^2.5.14",
     "@tailwindcss/vite": "^4.3.3",
-    "@types/node": "^26.3.0",
-    "puppeteer": "^25.9.0",
+    "@types/node": "^26.6.3",
+    "puppeteer": "^25.12.0",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.11",
-    "web-ext": "^10.6.0",
+    "vitest": "^5.0.2",
+    "web-ext": "^10.7.0",
     "wxt": "^0.21.4"
   },
   "license": "0BSD",
