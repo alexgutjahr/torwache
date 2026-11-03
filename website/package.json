@@ -25,7 +25,7 @@
     "turndown": "^7.2.4"
   },
   "devDependencies": {
-    "@astrojs/check": "^0.9.10",
+    "@astrojs/check": "^0.9.12",
     "@types/turndown": "^5.0.6",
     "typescript": "^6.0.3"
   }
