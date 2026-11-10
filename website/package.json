@@ -18,11 +18,11 @@
     "astro": "astro"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@vercel/functions": "^3.9.5",
-    "astro": "^7.2.6",
-    "simple-icons": "^16.28.0",
-    "turndown": "^7.2.4"
+    "@astrojs/sitemap": "^3.7.4",
+    "@vercel/functions": "^3.11.0",
+    "astro": "^7.4.7",
+    "simple-icons": "^16.36.0",
+    "turndown": "^7.2.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
